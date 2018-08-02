@@ -5,23 +5,26 @@ import '../css/App.css'
 
 // Components
 import Keyboard from './Keyboard'
-
 const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
 class App extends Component {
   state = {
-    keyboard: this.generateKeyboard(),
+    letters: this.generateKeyboard(),
+    indexLettersUsed: [],
+    indexLettersAvailable: [],
   }
+
   generateKeyboard() {
     return letters.split('')
   }
+
+  handleClick = index => {
+    console.log(index)
+  }
+
   render() {
-    const lettersInArray = this.state.keyboard
     return (
       <div className="keyboard">
-        {lettersInArray.map((letter, index) => (
-          <Keyboard key={index} letter={letter} />
-        ))}
+        <Keyboard letters={this.state.letters} onClick={this.handleClick} />
       </div>
     )
   }

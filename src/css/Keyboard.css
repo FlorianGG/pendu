@@ -1,0 +1,25 @@
+.keyboard {
+  max-width: 600px;
+  margin: auto;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.keyboard .buttonKeyboard {
+  width: 50px;
+  height: 30px;
+  margin: 3px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.keyboard .buttonKeyboard.wrong {
+  background-color: firebrick;
+  color: white;
+  cursor: not-allowed;
+}
+.keyboard .buttonKeyboard.right {
+  background-color: forestgreen;
+  color: white;
+  cursor: not-allowed;
+}
