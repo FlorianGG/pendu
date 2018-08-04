@@ -1,5 +1,4 @@
 .keyboard {
-  max-width: 600px;
   margin: auto;
   width: 100%;
   display: flex;
@@ -13,7 +12,7 @@
   border-radius: 8px;
   cursor: pointer;
 }
-.keyboard .buttonKeyboard.wrong {
+.keyboard .buttonKeyboard[disabled] {
   background-color: firebrick;
   color: white;
   cursor: not-allowed;
