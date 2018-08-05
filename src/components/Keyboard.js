@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 //CSS
 import '../css/Keyboard.css'
 
@@ -37,5 +38,8 @@ class Keyboard extends Component {
     )
   }
 }
-
+Keyboard.propTypes = {
+  letters: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onClick: PropTypes.func.isRequired,
+}
 export default Keyboard
