@@ -1,26 +1,28 @@
 .keyboard {
-  margin: auto;
   height: 300px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-content: space-around;
-  background: #efefef;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 .keyboard .buttonKeyboard {
   width: 50px;
   height: 40px;
   margin: 3px;
   border-radius: 8px;
+  font-size: 1.2rem;
   cursor: pointer;
+  background-color: #666;
+  color: white;
 }
 .keyboard .buttonKeyboard[disabled] {
-  background-color: firebrick;
+  background-color: #dc3545;
   color: white;
   cursor: not-allowed;
 }
 .keyboard .buttonKeyboard.right {
-  background-color: forestgreen;
+  background-color: #28a745;
   color: white;
   cursor: not-allowed;
 }

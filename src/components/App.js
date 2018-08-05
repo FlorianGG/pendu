@@ -10,8 +10,10 @@ import Keyboard from './Keyboard'
 import wordList from '../wordList'
 
 const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+const maxTry = 10
 class App extends Component {
   state = {
+    nbBadTry: 0,
     word: this.getRandomWord(),
     letters: this.generateKeyboard(),
     usedLetters: [],
@@ -34,19 +36,18 @@ class App extends Component {
     const { word } = this.state
     const usedLetters = [...this.state.usedLetters]
     const rightLetters = [...this.state.rightLetters]
+    let nbBadTry = this.state.nbBadTry
+    let test = word.indexOf(letter)
+    if (test === -1) nbBadTry++
     usedLetters.push(letter)
-    if (word.indexOf(letter) > -1) {
+    while (test !== -1) {
       rightLetters.push(letter)
+      test = word.indexOf(letter, test + 1)
     }
     const mask = this.maskToDisplay(word, usedLetters)
-    this.setState({ usedLetters, rightLetters, mask })
+    this.setState({ usedLetters, rightLetters, mask, nbBadTry })
   }
 
-  componentWillMount() {
-    const { word, usedLetters } = this.state
-    const mask = this.maskToDisplay(word, usedLetters)
-    this.setState({ mask })
-  }
   // Produit une représentation textuelle de l’état de la partie,
   // chaque lettre non découverte étant représentée par un _underscore_.
   maskToDisplay(word, usedLetters) {
@@ -60,25 +61,63 @@ class App extends Component {
     }
     return mask
   }
+  //on veut binder le this pour récupérer les states
+  relaunchNewGame = () => {
+    const word = this.getRandomWord()
+    const usedLetters = []
+    const rightLetters = []
+    const nbBadTry = 0
+    const mask = this.maskToDisplay(word, usedLetters)
+    this.setState({ word, usedLetters, rightLetters, mask, nbBadTry })
+  }
+
+  componentWillMount() {
+    const { word, usedLetters } = this.state
+    const mask = this.maskToDisplay(word, usedLetters)
+    this.setState({ mask })
+  }
 
   render() {
-    const { word, letters, usedLetters, rightLetters, mask } = this.state
-    const won = usedLetters.length === word.lenght
+    const {
+      word,
+      letters,
+      usedLetters,
+      rightLetters,
+      mask,
+      nbBadTry,
+    } = this.state
+    const lose = nbBadTry >= maxTry
+    const won = rightLetters.length === word.length && !lose
+    const remaingTrys = maxTry - nbBadTry
     return (
       <div className="container">
-        <div className="maskWord">
-          {mask.map((letter, index) => <span key={index}>{letter}</span>)}
+        <div className="remaingTrys">{remaingTrys}</div>
+        <div className="gameContainer">
+          <div className="maskWord">
+            {mask.map((letter, index) => <span key={index}>{letter}</span>)}
+          </div>
+          <div className="endGameText">
+            {won && <span className="win">You Win !</span>}
+            {lose && <span className="lose">You Lose !</span>}
+          </div>
+          <div className="keyboard">
+            {!won &&
+              !lose && (
+                <Keyboard
+                  letters={letters}
+                  onClick={this.handleClick}
+                  usedLetters={usedLetters}
+                  rightLetters={rightLetters}
+                />
+              )}
+            {(won || lose) && (
+              <button className="success" onClick={this.relaunchNewGame}>
+                Recommencer une nouvelle partie
+              </button>
+            )}
+          </div>
         </div>
-        <div className="keyboard">
-          {!won && (
-            <Keyboard
-              letters={letters}
-              onClick={this.handleClick}
-              usedLetters={usedLetters}
-              rightLetters={rightLetters}
-            />
-          )}
-        </div>
+        <div className="remaingTrys">{remaingTrys}</div>
       </div>
     )
   }

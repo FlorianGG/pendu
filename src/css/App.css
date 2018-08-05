@@ -1,29 +1,61 @@
+@font-face {
+  font-family: GloriaHallelujah;
+  src: url(../fonts/Gloria_Hallelujah/GloriaHallelujah.ttf);
+}
 body {
   margin: 0;
   height: 100vh;
-}
-#root {
-  margin: 0 auto;
-  display: flex;
-  max-width: 800px;
-  justify-content: center;
-  background-color: #bdc3c7;
+  background: #000 radial-gradient(closest-side, #3f546b, #000);
 }
 .container {
-  height: 100vh;
-  max-width: 600px;
+  display: flex;
+  justify-content: space-around;
 }
-.container .maskWord {
-  max-width: 600px;
+.gameContainer {
+  height: 100vh;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.gameContainer .maskWord {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 200px;
-  margin: 50px auto;
-  background: #efefef;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
 }
-.container .maskWord span {
+.gameContainer .maskWord span {
   font-size: 3rem;
   font-weight: bold;
   margin: 0 10px;
+}
+.gameContainer .success {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 1.2rem;
+  border: solid 2px #ccc;
+  border-radius: 8px;
+  background-color: #593f6b;
+  color: #fff;
+  cursor: pointer;
+}
+
+.gameContainer .endGameText {
+  font-family: 'GloriaHallelujah', serif;
+  font-size: 3rem;
+  text-align: center;
+}
+.gameContainer .endGameText .win {
+  color: lime;
+}
+.gameContainer .endGameText .lose {
+  color: red;
+}
+.remaingTrys {
+  font-family: 'GloriaHallelujah', serif;
+  font-size: 8rem;
+  text-align: center;
+  color: #593f6b;
 }
